@@ -20,11 +20,11 @@ class CameraView extends StatelessWidget {
               CameraPreview(controller.cameraController),
               
               Positioned(
-                top: 200,
+                top: ,
                 right: 100,
                 child: Container(
-                  width: 200,
-                  height: 100,
+                  width:  100,
+                  height: 200,
                   decoration: BoxDecoration(
                     border: Border.all(width: 4, color: const Color.fromARGB(255, 239, 148, 255))
                   ),

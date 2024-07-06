@@ -60,19 +60,19 @@ class ScanController extends GetxController {
     
     
     await Tflite.loadModel(
-        model: "assets/mobilenet_v1_1.0_224.tflite",
-        labels: "assets/mobilenet_v1_1.0_224.txt",
+        model: "assets/ssd_mobilenet.tflite",
+        labels: "assets/ssd_mobilenet.txt",
         isAsset: true,
         numThreads: 1,
         useGpuDelegate: false);
   }
 
   objectDetector(CameraImage image) async {
-    var detector = await Tflite.runModelOnFrame(
+    var detector = await Tflite.detectObjectOnFrame(
         bytesList: image.planes.map((e) {
           return e.bytes;
         }).toList(),
-        //model: "SSDMobileNet",
+        model: "SSDMobileNet",
         asynch: true,
         imageHeight: image.height,
         imageWidth: image.width,
@@ -86,10 +86,16 @@ class ScanController extends GetxController {
     detector?.forEach((response) {
       
       if (detector != null) {
-        if (detector[0]['confidence'] * 100 > 50) {
-          label = response['label'].toString();
-         /* x = detector[0]['rect']['x'];
-          print(detector);*/
+        if (detector[0]['confidenceInClass'] * 100 > 50) {
+          label = response['detectedClass'].toString();
+           x = response['rect']['x'];
+           y = response['rect']['y'];
+           h = response['rect']['h'];
+           w = response['rect']['w'];
+          print("${x}, ${y}, ${h}, ${w} ");
+         
+          
+          
           
          
         }
