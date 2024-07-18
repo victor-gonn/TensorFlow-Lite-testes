@@ -3,28 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:teste_tflow/controller/scan_controller.dart';
-import 'dart:math' as math;
 
-class CameraView extends StatelessWidget {
+
+class CameraView extends StatefulWidget {
   const CameraView({super.key});
 
   @override
+  State<CameraView> createState() => _CameraViewState();
+}
+
+class _CameraViewState extends State<CameraView> {
+  @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    
+
+    
+    
     return Scaffold(
       body: GetBuilder<ScanController>(
+        
         init: ScanController(),
         builder: (controller) {
+          
+          
           return controller.isCameraInitialized.value ? Stack(
             children: [
               CameraPreview(controller.cameraController),
               
               Positioned(
-                top: ,
-                right: 100,
+                top:  controller.y != null ? (controller.y )* 700 : 200  ,
+                right: controller.y != null ? (controller.x) * 500 : 100  ,
+                width:  controller.w != null ? controller.w * 100 * context.width / 100 : 100,
+                  height: controller.w != null ? controller.h * 100 * context.height / 100 : 100,
+                
                 child: Container(
-                  width:  100,
-                  height: 200,
+                  
                   decoration: BoxDecoration(
                     border: Border.all(width: 4, color: const Color.fromARGB(255, 239, 148, 255))
                   ),

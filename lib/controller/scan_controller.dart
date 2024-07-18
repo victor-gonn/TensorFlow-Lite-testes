@@ -1,4 +1,5 @@
-import 'dart:math' as math;
+
+
 
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
@@ -12,8 +13,9 @@ class ScanController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    initCamera();
     initTFlite();
+    initCamera();
+    
   }
 
   @override
@@ -79,6 +81,7 @@ class ScanController extends GetxController {
         imageMean: 127.5,
         imageStd: 127.5,
         rotation: 90,
+        
         threshold: 0.1);
 
         
@@ -86,13 +89,14 @@ class ScanController extends GetxController {
     detector?.forEach((response) {
       
       if (detector != null) {
-        if (detector[0]['confidenceInClass'] * 100 > 50) {
+        if (detector[0]['confidenceInClass'] * 100 > 45) {
           label = response['detectedClass'].toString();
-           x = response['rect']['x'];
-           y = response['rect']['y'];
-           h = response['rect']['h'];
-           w = response['rect']['w'];
-          print("${x}, ${y}, ${h}, ${w} ");
+           x = response['rect']['x'] ;
+           y = response['rect']['y'] ;
+           h = response['rect']['h'] ;
+           w = response['rect']['w'] ;
+           print(detector);
+          
          
           
           
